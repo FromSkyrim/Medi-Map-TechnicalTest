@@ -1,72 +1,68 @@
 [
-  {
-    "PatientID": "1",
-    "FirstName": "Barbara",
-    "LastName": "Smith",
-    "Gender": "Female",
-    "DOB": "1944-08-28",
-    "HeightCms": "165",
-    "WeightKgs": "75.6",
-    "MedicationID": "5",
-    "MedicationName": "Docusate sodium 50 mg + sennoside B 8 mg tablet"
-
-  },
-  {
-    "PatientID": "5",
-    "FirstName": "Mary",
-    "LastName": "Gay",
-    "Gender": "Female",
-    "DOB": "1955-02-23",
-    "HeightCms": "0",
-    "WeightKgs": "154",
-    "MedicationID": "1",
-    "MedicationName": "Laxsol sodium 50 mg + sennoside B 8 mg tablet"
-  },
-  {
-    "PatientID": "3",
-    "FirstName": "Ivan",
-    "LastName": "Winter",
-    "Gender": "Male",
-    "DOB": "1942-10-12",
-    "HeightCms": "175.3",
-    "WeightKgs": "85",
-    "MedicationID": "2",
-    "MedicationName": "Ativan 1 mg tablet"
-  },
-  {
-    "PatientID": "4",
-    "FirstName": "Richard",
-    "LastName": "Elgar",
-    "Gender": "Male",
-    "DOB": "1953-12-12",
-    "HeightCms": "180",
-    "WeightKgs": "83.2",
-    "MedicationID": "3",
-    "MedicationName": "Abacavir 300 mg tablet"
-  },
-  {
-
-    "PatientID": "2",
-    "FirstName": "Helen",
-    "LastName": "Castillo",
-    "Gender": "Female",
-    "DOB": "1963-10-19",
-    "HeightCms": "161",
-    "WeightKgs": "65",
-    "MedicationID": "5",
-    "MedicationName": "Docusate sodium 50 mg + sennoside B 8 mg tablet"
-  },
-  {
-
-    "PatientID": "6",
-    "FirstName": "Trevor",
-    "LastName": "Ford",
-    "Gender": "Male",
-    "DOB": "1983-10-19",
-    "HeightCms": "178",
-    "WeightKgs": "80",
-    "MedicationID": "4",
-    "MedicationName": "Cardizem CD - diltiazem hydrochloride 240 mg capsule: extended release"
-
-  }
+    {
+        "PatientID": "1",
+        "FirstName": "Barbara",
+        "LastName": "Smith",
+        "Gender": "Female",
+        "DOB": "1944-08-28",
+        "HeightCms": "165",
+        "WeightKgs": "75.6",
+        "MedicationID": "5",
+        "MedicationName": "Docusate sodium 50 mg + sennoside B 8 mg tablet"
+    },
+    {
+        "PatientID": "5",
+        "FirstName": "Mary",
+        "LastName": "Gay",
+        "Gender": "Female",
+        "DOB": "1955-02-23",
+        "HeightCms": "0",
+        "WeightKgs": "154",
+        "MedicationID": "1",
+        "MedicationName": "Laxsol sodium 50 mg + sennoside B 8 mg tablet"
+    },
+    {
+        "PatientID": "3",
+        "FirstName": "Ivan",
+        "LastName": "Winter",
+        "Gender": "Male",
+        "DOB": "1942-10-12",
+        "HeightCms": "175.3",
+        "WeightKgs": "85",
+        "MedicationID": "2",
+        "MedicationName": "Ativan 1 mg tablet"
+    },
+    {
+        "PatientID": "4",
+        "FirstName": "Richard",
+        "LastName": "Elgar",
+        "Gender": "Male",
+        "DOB": "1953-12-12",
+        "HeightCms": "180",
+        "WeightKgs": "83.2",
+        "MedicationID": "3",
+        "MedicationName": "Abacavir 300 mg tablet"
+    },
+    {
+        "PatientID": "2",
+        "FirstName": "Helen",
+        "LastName": "Castillo",
+        "Gender": "Female",
+        "DOB": "1963-10-19",
+        "HeightCms": "161",
+        "WeightKgs": "65",
+        "MedicationID": "5",
+        "MedicationName": "Docusate sodium 50 mg + sennoside B 8 mg tablet"
+    },
+    {
+        "PatientID": "6",
+        "FirstName": "Trevor",
+        "LastName": "Ford",
+        "Gender": "Male",
+        "DOB": "1983-10-19",
+        "HeightCms": "178",
+        "WeightKgs": "80",
+        "MedicationID": "4",
+        "MedicationName": "Cardizem CD - diltiazem hydrochloride 240 mg capsule: extended release"
+    }
 ]
