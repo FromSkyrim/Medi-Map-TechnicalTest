@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using TechnicalTest.Service;
 
 namespace TechnicalTest
 {
@@ -13,10 +14,12 @@ namespace TechnicalTest
         {
             Configuration = configuration;
         }
-  
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            // Register JsonDataService
+            services.AddSingleton<JsonDataService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
