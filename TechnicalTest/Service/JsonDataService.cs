@@ -6,11 +6,12 @@ using Microsoft.AspNetCore.Hosting;
 using Newtonsoft.Json;
 using TechnicalTest.Model;
 using Microsoft.Extensions.Logging;
+using TechnicalTest.Interface;
 
 
 namespace TechnicalTest.Service
 {
-    public class JsonDataService
+    public class JsonDataService : IJsonDataService
     {
         private readonly string _basePath;
         private readonly ILogger<JsonDataService> _logger;
