@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -23,19 +24,28 @@ namespace TechnicalTest.Controllers
         [HttpPost("process-data")]
         public async Task<IActionResult> ProcessData()
         {
-            var patients = _jsonDataService.GetPatientData();
-            foreach (var patient in patients)
+            try
             {
-                bool exists = await _databaseService.CheckPatientExists(patient.PatientID);
-                if (!exists)
+                var patients = _jsonDataService.GetPatientData();
+                foreach (var patient in patients)
                 {
-                    await _databaseService.InsertPatient(patient);
+                    bool exists = await _databaseService.CheckPatientExists(patient.PatientID);
+                    if (!exists)
+                    {
+                        await _databaseService.InsertPatient(patient);
+                    }
+                    decimal bmi = CalculateBMI(patient.WeightKgs, patient.HeightCms);
+                    await _databaseService.InsertMedicationAdministrationRecord(patient.PatientID, bmi, patient.MedicationID);
                 }
-                decimal bmi = CalculateBMI(patient.WeightKgs, patient.HeightCms);
-                await _databaseService.InsertMedicationAdministrationRecord(patient.PatientID, bmi, patient.MedicationID);
+                return Ok("Data processed successfully.");
             }
-            return Ok("Data processed successfully.");
+            catch (Exception ex)
+            {
+                // Log the exception or handle it as necessary
+                return StatusCode(500, "Error processing patient data: " + ex.Message);
+            }
         }
+
 
         private decimal CalculateBMI(decimal weight, decimal height)
         {
