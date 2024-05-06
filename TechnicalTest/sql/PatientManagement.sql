@@ -44,7 +44,7 @@ CREATE TABLE dbo.MedicationAdministration
 	MedicationAdministrationID int IDENTITY(1, 1) NOT NULL,
 	PatientID INT NOT NULL,
 	Created DATETIME NOT NULL,
-	BMI DECIMAL(3,1) NOT NULL
+	BMI DECIMAL(3,1) NOT NULL,
 	PRIMARY KEY CLUSTERED 
 	(
 		MedicationAdministrationID ASC
@@ -182,7 +182,17 @@ BEGIN
 	/*
 		This procedure receives data from the API tier that will insert a new patient record or update an existing patient record.
 	*/
-
+	    IF NOT EXISTS (SELECT 1 FROM dbo.Patient WHERE PatientID = @PatientID)
+    BEGIN
+        INSERT INTO dbo.Patient (PatientID, FirstName, LastName, Gender, DOB, HeightCms, WeightKgs)
+        VALUES (@PatientID, @FirstName, @LastName, @Gender, @DOB, @HeightCms, @WeightKgs)
+    END
+    ELSE
+    BEGIN
+        UPDATE dbo.Patient
+        SET FirstName = @FirstName, LastName = @LastName, Gender = @Gender, DOB = @DOB, HeightCms = @HeightCms, WeightKgs = @WeightKgs
+        WHERE PatientID = @PatientID
+    END
 END
 go
 
@@ -202,23 +212,24 @@ BEGIN
 	/*
 		This procedure receives data from the API tier that will insert a new Medication being administered to an existing patient.
 	*/
-
+	DECLARE @CurrentDate DATETIME = GETDATE();
+    INSERT INTO dbo.MedicationAdministration (PatientID, Created, BMI)
+    VALUES (@PatientID, @CurrentDate, @BMI)
 
 END
 go
 CREATE or ALTER   PROCEDURE [dbo].[uspLogError]
 @ErrorLogId INT,
-@ErrorMessage INT
+@ErrorMessage NVARCHAR(4000)
 
 AS 
 BEGIN
 
-
 	/*
 		This procedure will insert an error message log.
 	*/
-
-
+	INSERT INTO dbo.ErrorLog (ErrorMessage)
+    VALUES (@ErrorMessage)
 
 END
 go
