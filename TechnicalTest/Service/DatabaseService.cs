@@ -1,4 +1,4 @@
-using System;
+using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
@@ -7,13 +7,6 @@ using TechnicalTest.Model;
 
 namespace TechnicalTest.Service
 {
-    using System;
-    using System.Data;
-    using System.Data.SqlClient;
-    using System.Threading.Tasks;
-    using Microsoft.Extensions.Configuration;
-    using TechnicalTest.Model;
-
     public class DatabaseService : IDatabaseService
     {
         private readonly string _connectionString;
