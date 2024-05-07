@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 using TechnicalTest.Interface;
-using TechnicalTest.Model;
+using TechnicalTest.Utility;
 
 namespace TechnicalTest.Controllers
 {
@@ -34,7 +32,7 @@ namespace TechnicalTest.Controllers
                     {
                         await _databaseService.InsertPatient(patient);
                     }
-                    decimal bmi = CalculateBMI(patient.WeightKgs, patient.HeightCms);
+                    decimal bmi = HealthMetricsCalculator.CalculateBMI(patient.WeightKgs, patient.HeightCms);
                     await _databaseService.InsertMedicationAdministrationRecord(patient.PatientID, bmi, patient.MedicationID);
                 }
                 return Ok("Data processed successfully.");
@@ -44,14 +42,6 @@ namespace TechnicalTest.Controllers
                 // Log the exception or handle it as necessary
                 return StatusCode(500, "Error processing patient data: " + ex.Message);
             }
-        }
-
-
-        private decimal CalculateBMI(decimal weight, decimal height)
-        {
-            if (height == 0) return 0;
-            decimal heightInMeters = height / 100;
-            return weight / (heightInMeters * heightInMeters);
         }
     }
 }
