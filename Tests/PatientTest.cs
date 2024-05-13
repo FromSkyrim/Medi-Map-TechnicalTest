@@ -47,24 +47,26 @@ namespace Tests
         public async Task ProcessData_ShouldHandleExceptionsProperly()
         {
             // Arrange
+            var exceptionMessage = "Database unavailable";
             var patients = new List<PatientDetails>
             {
                 new PatientDetails { PatientID = 1, FirstName = "John", LastName = "Doe" }
             };
             _mockJsonDataService.Setup(service => service.GetPatientData()).Returns(patients);
-            _mockDatabaseService.Setup(service => service.CheckPatientExists(It.IsAny<int>())).ThrowsAsync(new Exception("Database unavailable"));
+            _mockDatabaseService.Setup(service => service.CheckPatientExists(It.IsAny<int>())).ThrowsAsync(new Exception(exceptionMessage));
+            _mockDatabaseService.Setup(service => service.LogError(It.IsAny<string>()));
 
             // Act
-            var result = await _controller.ProcessData();
+            Func<Task> act = async () => await _controller.ProcessData();
 
             // Assert
-            var objectResult = Assert.IsType<ObjectResult>(result);
-            Assert.Equal(500, objectResult.StatusCode);
-            Assert.Contains("Error processing patient data", objectResult.Value.ToString());
+            var exception = await Assert.ThrowsAsync<Exception>(act);
+            Assert.Equal(exceptionMessage, exception.Message);
+            _mockDatabaseService.Verify(service => service.LogError(It.Is<string>(s => s.Contains("Error processing patient data"))), Times.Once());
         }
 
         [Fact]
-        public async Task ProcessData_ShouldReturnOk_WhenNoPatientsExist()
+        public async Task ProcessData_ShouldReturnNotFound_WhenNoPatientsExist()
         {
             // Arrange
             var emptyPatients = new List<PatientDetails>();
@@ -76,9 +78,9 @@ namespace Tests
             // Assert
             _mockDatabaseService.Verify(service => service.CheckPatientExists(It.IsAny<int>()), Times.Never());
             _mockDatabaseService.Verify(service => service.InsertMedicationAdministrationRecord(It.IsAny<int>(), It.IsAny<decimal>(), It.IsAny<int>()), Times.Never());
-            Assert.IsType<OkObjectResult>(result);
+            var notFoundResult = Assert.IsType<NotFoundObjectResult>(result);
+            Assert.Equal("No patient data available.", notFoundResult.Value);
         }
-
 
     }
 }
