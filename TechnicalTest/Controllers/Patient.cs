@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TechnicalTest.Interface;
@@ -25,6 +26,10 @@ namespace TechnicalTest.Controllers
             try
             {
                 var patients = _jsonDataService.GetPatientData();
+                if (!patients.Any())
+                {
+                    return NotFound("No patient data available.");
+                }
                 foreach (var patient in patients)
                 {
                     bool exists = await _databaseService.CheckPatientExists(patient.PatientID);
@@ -39,8 +44,8 @@ namespace TechnicalTest.Controllers
             }
             catch (Exception ex)
             {
-                // Log the exception or handle it as necessary
-                return StatusCode(500, "Error processing patient data: " + ex.Message);
+                await _databaseService.LogError("Error processing patient data:" + ex.Message);
+                throw; // Preserve stack trace and re-throw the exception
             }
         }
     }

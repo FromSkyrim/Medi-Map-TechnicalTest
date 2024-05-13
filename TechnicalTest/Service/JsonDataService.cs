@@ -33,15 +33,10 @@ namespace TechnicalTest.Service
                     return JsonConvert.DeserializeObject<List<PatientDetails>>(json);
                 }
             }
-            catch (JsonException ex)
-            {
-                _logger.LogError(ex, "Error parsing JSON: {Message}", ex.Message);
-                return Enumerable.Empty<PatientDetails>();
-            }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An unexpected error occurred while accessing the data.");
-                return Enumerable.Empty<PatientDetails>();
+                _logger.LogError(ex, "An error occurred while accessing patient data.");
+                throw;  // Preserve stack trace and re-throw the exception
             }
         }
 
